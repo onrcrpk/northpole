@@ -33,7 +33,7 @@
         .info.legend i {
             width: 12px;
             height: 12px;
-            margin-right: 8px;
+            margin-right: 3px;
             opacity: 0.7;
             border-radius: 50%;
             border: 1.75px solid black;
@@ -559,6 +559,13 @@
         var extent = Math.sqrt(2) * 6371007.2;
         var resolutions = Array(max_zoom + 1).fill().map((_, i) => (extent / tile_size / Math.pow(2, i - 1)));
 
+        // Define your custom boundaries
+var customBounds = L.latLngBounds(
+    L.latLng(-90, -180),  // Minimum latitude and longitude
+    L.latLng(90, 180)   // Maximum latitude and longitude
+);
+
+
         var crs = new L.Proj.CRS(
             'EPSG:3575',
             '+proj=laea +lat_0=90 +lon_0=10 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs',
@@ -571,6 +578,8 @@
 
         var map = L.map('map', {
             crs: crs,
+            maxBounds: customBounds  // Set the maximum bounds manually
+
         }).setView([81.6, 0], 1);
 
 
